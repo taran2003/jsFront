@@ -1,7 +1,50 @@
 .App {
+  margin-top: 10%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items : center;
   justify-content: center;
 }
+
+.block
+{
+  box-shadow: 10px -5px 5px #383838;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items : center;
+  justify-content: center;
+  width: 450px;
+  height: 300px;
+  background: #303030;
+  -webkit-border-radius: 100px / 50px;
+  -moz-border-radius: 100px / 50px;
+  border-radius: 100px / 50px;
+}
+
+.button {
+  background-color: #53377A;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 16px 16px;
+  -webkit-border-radius: 100px / 50px;
+  -moz-border-radius: 100px / 50px;
+  cursor: pointer;
+}
+
+.input{
+  color:white;
+  outline: none;
+  background: #202020;
+  -webkit-border-radius: 100px / 50px;
+  -moz-border-radius: 100px / 50px;
+  padding: 15px 50px;
+  margin: 16px 16px;
+}
+

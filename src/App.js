@@ -1,13 +1,36 @@
 import './App.css';
+import {useState} from "react";
 
 function App() {
-    const handelClick = () => {alert("massage");}
 
-  return (
+    const [login,setLogin] = useState('');
+    const [password,setPassword] = useState('');
+    let user = {
+        login: login,
+        password: password,
+    };
+
+    const loginHandler = (e) =>
+    {
+        setLogin(e.target.value);
+    }
+
+    const passwordHandler = (e) =>
+    {
+        setPassword(e.target.value);
+    }
+
+    const send = () => {
+        alert(JSON.stringify(user))
+    }
+
+    return (
     <div className="App">
-      <input placeholder={"login"} type={"text"}/>
-      <input placeholder={"password"} type={"password"}/>
-      <button onClick={handelClick}>submit</button>
+        <div className="block">
+            <input onChange={loginHandler} value={login} className="input" name="login" placeholder={"login"} type={"text"}/>
+            <input onChange={passwordHandler} value={password} className="input" name="password" placeholder={"password"} type={"password"}/>
+            <button className="button" onClick={send} >submit</button>
+        </div>
     </div>
   );
 }
