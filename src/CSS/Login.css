@@ -1,0 +1,24 @@
+.App {
+  margin-top: 10%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items : center;
+  justify-content: center;
+}
+
+.button {
+  background-color: #53377A;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 16px 16px;
+  -webkit-border-radius: 100px / 50px;
+  -moz-border-radius: 100px / 50px;
+  cursor: pointer;
+}
+

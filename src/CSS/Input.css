@@ -1,0 +1,9 @@
+.input{
+    color:white;
+    outline: none;
+    background: #202020;
+    -webkit-border-radius: 100px / 50px;
+    -moz-border-radius: 100px / 50px;
+    padding: 15px 50px;
+    margin: 16px 16px;
+}
