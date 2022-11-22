@@ -1,6 +1,6 @@
 import '../CSS/Login.css';
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import LinkComponent from "../Components/LinkComponent";
 import FormComponent from "../Components/RegisterFormComponent";
 
 function Register(){
@@ -18,12 +18,20 @@ function Register(){
     }
 
     return(
+        <div>
+            <div className="Navigation">
+                <LinkComponent
+                    to = {"/login"}
+                    text = {"login"}
+                />
+            </div>
         <div className="App">
             <FormComponent
                 onChange = {handelState}
                 send={send}
                 form = {form}
             />
+        </div>
         </div>
     );
 }

@@ -29,11 +29,6 @@ function RegisterFormComponent({onChange, send, form }) {
                 <button className="button">
                     Submit
                 </button>
-                <Link to="/login">
-                    <button className="button">
-                        login
-                    </button>
-                </Link>
             </div>
         </form>);
 }

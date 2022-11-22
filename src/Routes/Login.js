@@ -1,7 +1,6 @@
 import '../CSS/Login.css';
 import {useState} from "react";
-import {Link} from "react-router-dom";
-import InputComponent from "../Components/InputComponent";
+import LinkComponent from "../Components/LinkComponent";
 import Form from "../Components/LoginFormComponent";
 
 
@@ -21,12 +20,20 @@ function Login() {
     }
 
     return (
-        <div className="App">
-            <Form
-                onChange = {handelState}
-                send={send}
-                form = {form}
-            />
+        <div>
+            <div className="Navigation">
+                <LinkComponent
+                    to = {"/register"}
+                    text = {"register"}
+                />
+            </div>
+            <div className="App">
+                <Form
+                    onChange = {handelState}
+                    send={send}
+                    form = {form}
+                />
+            </div>
         </div>
     );
 }
