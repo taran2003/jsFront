@@ -1,0 +1,25 @@
+.Post {
+    margin: 2px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 400px;
+    background: #303030;
+    -webkit-border-radius: 100px / 50px;
+    -moz-border-radius: 100px / 50px;
+    border-radius: 100px / 50px;
+}
+
+.text {
+    width: 250px;
+    height: 250px;
+}
+
+.img {
+    width: 250px;
+    height: 250px;
+    margin-right: 200px;
+}
