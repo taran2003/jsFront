@@ -1,6 +1,6 @@
 import '../CSS/Login.css';
 import {useState} from "react";
-import useAppContext from '../useContext';
+import useAuthContext from '../Providers/useAuthContext';
 import NavigationComponent from "../Components/NavigationComponent";
 import Form from "../Components/LoginFormComponent";
 import {login} from "../Helper/ServerRequest";
@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
-    const {setIsLoggedIn} = useAppContext();
+    const {setIsLoggedIn} = useAuthContext();
 
     let [form, setForm] = useState({
         login: '', password: '',
@@ -18,7 +18,7 @@ function Login() {
         setForm({...form, [e.target.name]: e.target.value});
     }
 
-    async function send() {
+    async function onSubmit() {
         const accessToken  = await login({login:form.login,password:form.password});
         if(accessToken){
             setIsLoggedIn(true);
@@ -27,11 +27,11 @@ function Login() {
     }
 
     return (<div>
-        <NavigationComponent linkString={"register"}></NavigationComponent>
+        <NavigationComponent>register</NavigationComponent>
         <div className="App">
             <Form
                 onChange={handelState}
-                send={send}
+                onSubmit={onSubmit}
                 form={form}
             />
         </div>

@@ -1,22 +1,16 @@
-import "../CSS/Login.css"
-import useContext from "../useContext";
-import NavigationComponent from "../Components/NavigationComponent";
-import Test from "../Components/test";
+import "../CSS/Main.css"
+import NavigationComponent from "../Components/NavigationComponentMain";
+import Posts from "../Components/Posts";
+
+
 
 function Main() {
-    const {setIsLoggedIn} = useContext();
     return (
         <div>
 
-            <NavigationComponent/>
+            <NavigationComponent>logout</NavigationComponent>
             <div className='app'>
-                <Test/>
-                <p>login</p>
-                <button onClick={() => {
-                    setIsLoggedIn(false)
-                }}>
-                    Logout
-                </button>
+                <Posts/>
             </div>
         </div>
     );

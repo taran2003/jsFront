@@ -1,12 +1,16 @@
 import '../CSS/Post.css';
 
-function PostComponent({text, img}) {
+function PostComponent({ text, img, postId }) {
+    const id = postId;
+
+
     return (
         <div className='Post'>
-            <img className='img' src={img}/>
+            <img className='img' src={img} />
             <div className='text'>
-                <p>{text + " aaaaaaaa aaaaa aaaa aaa aa a a aaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa"}</p>
+                {text}
             </div>
+                <button>delete</button>
         </div>
     );
 }

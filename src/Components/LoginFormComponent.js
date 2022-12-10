@@ -1,7 +1,7 @@
 import '../CSS/Form.css';
 import InputComponent from "./InputComponent";
 
-function LoginFormComponent({onChange, send, form}) {
+function LoginFormComponent({onChange, onSubmit, form}) {
     return (
         <div className="login">
             <form>
@@ -19,10 +19,8 @@ function LoginFormComponent({onChange, send, form}) {
                     placeholder="password"
                     type="password"
                 />
-                <div>
-                </div>
             </form>
-            <button className="button" onClick={send}>
+            <button className="button" onClick={onSubmit}>
                 Login
             </button>
         </div>

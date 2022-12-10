@@ -7,16 +7,6 @@
     justify-content: center;
 }
 
-.NavigationText {
-  margin: 5px;
-}
-
-.Navigation {
-    height: 2rem;
-    width: 100%;
-    background: #303030;
-}
-
 .button {
     background-color: #53377A;
     border: none;
@@ -32,3 +22,18 @@
     cursor: pointer;
 }
 
+.login
+{
+    box-shadow: 10px -5px 5px #383838;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+    justify-content: center;
+    width: 450px;
+    height: 300px;
+    background: #303030;
+    -webkit-border-radius: 100px / 50px;
+    -moz-border-radius: 100px / 50px;
+    border-radius: 100px / 50px;
+}

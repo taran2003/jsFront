@@ -18,12 +18,11 @@ function Register() {
     const send = async () => {
         const {login,password,passwordConf,firstName,lastName} = form;
         const result  = await register({login,password,passwordConf,firstName,lastName});
-        console.log(result);
     }
 
     return (
         <div>
-            <NavigationComponent linkString={"login"}></NavigationComponent>
+            <NavigationComponent>login</NavigationComponent>
             <div className="App">
                 <FormComponent
                     onChange={handelState}

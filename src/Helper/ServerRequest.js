@@ -4,25 +4,23 @@ export const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-export const getSessionFromStorage = () => localStorage.getItem('tokens');
-
-// фабрика создания запросов
-const request = async ({
-                                  headers = {},
-                                  method = 'POST',
-                                  url,
-                                  data,
-                                  params,
-                              }) => {
-    // получили токен
-    const { accessToken, refreshToken } = getSessionFromStorage() || {};
-
-    // если есть токен то добавили его в header
-    if (accessToken) {
-        data = {accessToken, refreshToken};
+export const getSessionFromStorage = () => {
+    return {
+        accessToken: localStorage.getItem('accessToken'),
+        refreshToken: localStorage.getItem('refreshToken')
     }
+}
 
-    // формируем параметры запроса
+
+const Request = async ({
+    headers = {},
+    method = 'POST',
+    url,
+    data,
+    params,
+    isUpdatable = false
+}) => {
+
     const options = {
         headers,
         method,
@@ -30,41 +28,66 @@ const request = async ({
         params,
         url,
     };
+    
+    let { accessToken, refreshToken } = getSessionFromStorage();
 
+    if (accessToken) {
+        options.headers = {
+            ...options.headers,
+            ...authHeaders()
+        }
+    }
+    
     try {
-        // выполняем запрос
-        const result = await axiosInstance(options);
-
-        // const { data } = result
-        // console.log(data);
-
+        const result = await axiosInstance(options)
         return result;
     } catch (error) {
-        console.error(error);
-
+        if (isUpdatable) {
+            try {
+                await refreshTokens({ accessTok: accessToken, refreshTok: refreshToken })
+                options.headers = {
+                    ...options.headers,
+                    ...authHeaders()
+                }
+                const result = await axiosInstance(options);
+                return result;
+            }catch(error){
+                throw(error)
+            }
+        
+        }
         throw error;
     }
 };
 
-// пример запроса авторизации
+
+
 export const login = async ({ login, password }) => {
-    const { data } = await request({
+    const { data } = await Request({
         url: 'http://localhost:3001/api/auth/login',
         data: {
             login,
             password,
         },
     });
-    let {accessToken, refreshToken} = data;
-    localStorage.setItem('tokens', (accessToken,refreshToken));
+    let { accessToken, refreshToken } = data;
+    localStorage.setItem('accessToken', (accessToken));
+    localStorage.setItem('refreshToken', (refreshToken));
     return accessToken;
 };
 
+function authHeaders() {
+    let { accessToken } = getSessionFromStorage();
+    return {
+        Authorization: `Bearer ${accessToken}`,
+    };
+};
+
 export const register = async ({ login, password, passwordConf, firstName, lastName }) => {
-    if(password !== passwordConf){
-        return ;
+    if (password !== passwordConf) {
+        return;
     }
-    const { data } = await request({
+    const { data } = await Request({
         url: 'http://localhost:3001/api/auth/register',
         data: {
             login,
@@ -76,11 +99,39 @@ export const register = async ({ login, password, passwordConf, firstName, lastN
     return data;
 };
 
-// пример запроса получения постов
-// const getPost = ({ login, password }) => {
-//     const { posts } = request({
-//         url: '/posts',
-//     });
-//
-//     return posts;
-// };
+export const createPost = async ({ image }) => {
+    const { posts } = await Request({
+        headers: {
+            'content-type': 'multipart/form-data'
+        },
+        url: 'http://localhost:3001/api/post/add',
+        data: image,
+        isUpdatable: true
+    });
+};
+
+export const getPosts = async ({ accessToken, refreshToken }) => {
+    const { data } = await Request({
+        url: 'http://localhost:3001/api/post/get',
+        data: {
+            accessToken,
+            refreshToken
+        },
+        isUpdatable: true
+    });
+    return data;
+};
+
+export const refreshTokens = async ({ accessTok, refreshTok }) => {
+    const { data } = await Request({
+        url: 'http://localhost:3001/api/auth/refresh',
+        data: {
+            accessToken: accessTok,
+            refreshToken: refreshTok,
+        },
+    });
+    let { accessToken, refreshToken } = data;
+    localStorage.setItem('accessToken', (accessToken));
+    localStorage.setItem('refreshToken', (refreshToken));
+    return accessToken;
+};

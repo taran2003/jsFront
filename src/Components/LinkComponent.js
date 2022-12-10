@@ -1,10 +1,10 @@
 import {Link} from "react-router-dom";
 
 
-function LinkComponent({to, text}) {
+function LinkComponent({to, children}) {
     return (
         <Link className="NavigationText" to={to}>
-            {text}
+            {children}
         </Link>
     );
 }
