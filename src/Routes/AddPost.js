@@ -33,7 +33,7 @@ function PostCreate() {
         }
 
     }
-    //to do текст в textArea
+    
     return (
         <div>
             <NavigationComponent>logout</NavigationComponent>
@@ -43,12 +43,13 @@ function PostCreate() {
                         onChange={e => setImg(e.target.files[0])}
                         name="file"
                         type="file" />
-                    <InputComponent
+                    <textarea
+                    className="login"
                         onChange={onChange}
                         value={form.text}
                         name="text"
                         placeholder="text"
-                        type="text" />
+                        type = "text" />
                     <button onClick={create} className="button">send</button>
                 </div>
             </div>

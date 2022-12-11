@@ -1,8 +1,16 @@
-.Post {
-    margin: 2px;
+.Content {    
     text-align: center;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.Post{
+    margin: 2px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 800px;
@@ -13,9 +21,30 @@
     border-radius: 100px / 50px;
 }
 
+.button {
+    background-color: #53377A;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 16px 16px;
+    -webkit-border-radius: 100px / 50px;
+    -moz-border-radius: 100px / 50px;
+    cursor: pointer;
+}
+
+.Creator{
+    margin-right: 80%;
+    color: aliceblue;
+}
+
 .text {
     width: 300px;
     height: 250px;
+    color: aliceblue;
 }
 
 .img {

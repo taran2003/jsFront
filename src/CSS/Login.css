@@ -7,16 +7,6 @@
     justify-content: center;
 }
 
-.NavigationText {
-  margin: 5px;
-}
-
-.Navigation {
-    height: 2rem;
-    width: 100%;
-    background: #303030;
-}
-
 .button {
     background-color: #53377A;
     border: none;

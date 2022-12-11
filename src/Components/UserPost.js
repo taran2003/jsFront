@@ -1,30 +1,35 @@
 import {useEffect, useState } from "react";
-import PostComponent from "./PostComponent";
-import { getAllPosts, getSessionFromStorage, refreshTokens } from "../Helper/ServerRequest";
 import { useNavigate } from "react-router-dom";
+import UserPostComponent from "./UserPostComponent";
+import { getPosts, getSessionFromStorage, getUserFromStorage,} from "../Helper/ServerRequest";
+import usePostContext from '../Providers/usePostContext'
 
 
 function Posts() {
     let { accessToken, refreshToken } = getSessionFromStorage();
     const navigate = useNavigate();
+    const { firstName,lastName } = getUserFromStorage();
 
     const [state, setState] = useState({
         error: null,
         isLoaded: false,
-        items: [],
-   });
+        items: []
+    });
+
+    const {postsLength, setPostsLength} = usePostContext();
 
     useEffect(() => {
-        getAllPosts({ accessToken, refreshToken })
+        getPosts({ accessToken, refreshToken })
             .then((result) => {
                 setState({
                     isLoaded: true,
-                    items: result,
+                    items: result.posts
                 });
+                setPostsLength(items.length);
             },(error)=>{
                 navigate('/logout')
             })
-    }, []);
+    },[postsLength]);
 
     const { error, isLoaded, items } = state;
 
@@ -36,13 +41,12 @@ function Posts() {
         return (
             <div className="GridPosts">
                 {items.map((item) => (
-                    
-                    <PostComponent
+                    <UserPostComponent
                         key={item.imgSours}
                         text={item.text}
                         img={'http://localhost:3001/' + item.imgSours}
                         postId={item.id}
-                        creator = {`${item.user.firstName} ${item.user.lastName}`}/>
+                        creator = {`${firstName} ${lastName}`} />
                 ))}
             </div>
         )

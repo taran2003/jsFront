@@ -1,0 +1,18 @@
+.NavigationText {
+    margin: 5px;
+    color: cornsilk;
+}
+
+.Navigation {
+    height: 2rem;
+    width: 100%;
+    background: #303030;
+
+}
+
+.User {
+    height: 10px;
+    width: 10px;
+    margin-left: 85%;
+    color: cornsilk;
+}

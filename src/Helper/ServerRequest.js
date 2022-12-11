@@ -11,6 +11,13 @@ export const getSessionFromStorage = () => {
     }
 }
 
+export const getUserFromStorage = () => {
+    return {
+        firstName: localStorage.getItem('firstName'),
+        lastName: localStorage.getItem('lastName')
+    }
+}
+
 
 const Request = async ({
     headers = {},
@@ -60,8 +67,6 @@ const Request = async ({
     }
 };
 
-
-
 export const login = async ({ login, password }) => {
     const { data } = await Request({
         url: 'http://localhost:3001/api/auth/login',
@@ -71,9 +76,12 @@ export const login = async ({ login, password }) => {
         },
     });
     let { accessToken, refreshToken } = data;
+    let {firstName,lastName} = data.user;
     localStorage.setItem('accessToken', (accessToken));
     localStorage.setItem('refreshToken', (refreshToken));
-    return accessToken;
+    localStorage.setItem('firstName', (firstName));
+    localStorage.setItem('lastName', (lastName));
+    return data.user;
 };
 
 function authHeaders() {
@@ -110,12 +118,36 @@ export const createPost = async ({ image }) => {
     });
 };
 
+export const getAllPosts = async ({ accessToken, refreshToken }) => {
+    const { data } = await Request({
+        url: 'http://localhost:3001/api/post/getAll',
+        data: {
+            accessToken,
+            refreshToken
+        },
+        isUpdatable: true
+    });
+    return data;
+};
+
 export const getPosts = async ({ accessToken, refreshToken }) => {
     const { data } = await Request({
         url: 'http://localhost:3001/api/post/get',
         data: {
             accessToken,
             refreshToken
+        },
+        isUpdatable: true
+    });
+    return data;
+};
+
+export const deletePost = async ({ postId,refreshToken }) => {
+    const { data } = await Request({
+        url: 'http://localhost:3001/api/post/delete',
+        data: {
+            refreshToken,
+            postId
         },
         isUpdatable: true
     });

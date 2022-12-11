@@ -1,29 +1,28 @@
 import '../CSS/Login.css';
-import {useState} from "react";
+import { useState } from "react";
 import useAuthContext from '../Providers/useAuthContext';
 import NavigationComponent from "../Components/NavigationComponent";
 import Form from "../Components/LoginFormComponent";
-import {login} from "../Helper/ServerRequest";
-import {useNavigate} from "react-router-dom";
+import { login, getUserFromStorage} from "../Helper/ServerRequest";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
-    const {setIsLoggedIn} = useAuthContext();
+    const { setIsLoggedIn, setUser} = useAuthContext();
 
     let [form, setForm] = useState({
         login: '', password: '',
     });
 
     const handelState = (e) => {
-        setForm({...form, [e.target.name]: e.target.value});
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
 
     async function onSubmit() {
-        const accessToken  = await login({login:form.login,password:form.password});
-        if(accessToken){
-            setIsLoggedIn(true);
-            navigate("/main");
-        }
+        await login({ login: form.login, password: form.password });
+        const { firstName, lastName } = getUserFromStorage();
+        setIsLoggedIn(true);
+        navigate("/main");
     }
 
     return (<div>
