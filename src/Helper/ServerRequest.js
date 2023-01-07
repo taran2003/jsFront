@@ -18,6 +18,12 @@ export const getUserFromStorage = () => {
     }
 }
 
+function authHeaders() {
+    let { accessToken } = getSessionFromStorage();
+    return {
+        Authorization: `Bearer ${accessToken}`,
+    };
+};
 
 const Request = async ({
     headers = {},
@@ -84,13 +90,6 @@ export const login = async ({ login, password }) => {
     return data.user;
 };
 
-function authHeaders() {
-    let { accessToken } = getSessionFromStorage();
-    return {
-        Authorization: `Bearer ${accessToken}`,
-    };
-};
-
 export const register = async ({ login, password, passwordConf, firstName, lastName }) => {
     if (password !== passwordConf) {
         return;
@@ -108,7 +107,7 @@ export const register = async ({ login, password, passwordConf, firstName, lastN
 };
 
 export const createPost = async ({ image }) => {
-    const { posts } = await Request({
+    await Request({
         headers: {
             'content-type': 'multipart/form-data'
         },
@@ -132,10 +131,23 @@ export const getAllPosts = async ({ accessToken, refreshToken }) => {
 
 export const getPosts = async ({ accessToken, refreshToken }) => {
     const { data } = await Request({
-        url: 'http://localhost:3001/api/post/get',
+        url: 'http://localhost:3001/api/post/getUser',
         data: {
             accessToken,
             refreshToken
+        },
+        isUpdatable: true
+    });
+    return data;
+};
+
+export const getPost = async ({ accessToken, refreshToken, id }) => {
+    const { data } = await Request({
+        url: 'http://localhost:3001/api/post/get',
+        data: {
+            accessToken,
+            refreshToken,
+            id
         },
         isUpdatable: true
     });
@@ -166,4 +178,32 @@ export const refreshTokens = async ({ accessTok, refreshTok }) => {
     localStorage.setItem('accessToken', (accessToken));
     localStorage.setItem('refreshToken', (refreshToken));
     return accessToken;
+};
+
+export const createComment = async ({text}) => {
+    const {refreshToken} = getSessionFromStorage(); 
+    const postId = parseInt(localStorage.getItem('postId'),10);
+    await Request({
+        url: 'http://localhost:3001/api/comment/add',
+        data: {
+            refreshToken,
+            text,
+            postId
+        },
+        isUpdatable: true
+    });
+};
+
+export const getComment = async () => {
+    const {refreshToken} = getSessionFromStorage(); 
+    const postId = parseInt(localStorage.getItem('postId'),10);
+    const {data} = await Request({
+        url: 'http://localhost:3001/api/comment/get',
+        data: {
+            refreshToken,
+            postId
+        },
+        isUpdatable: true
+    });
+    return data;
 };

@@ -4,6 +4,7 @@ export const postContext = createContext({ postsLength: 0 });
 
 const PostProvider = ({ children }) => {
     const [postsLength, setPostsLength] = useState(0);
+    // const [postId, setPostId] = useState(0);
     const value = { postsLength, setPostsLength };
     return (<postContext.Provider value={value}>
         {children}

@@ -2,7 +2,6 @@ import '../CSS/navigation.css';
 import {Link} from "react-router-dom";
 import LinkComponent from "./LinkComponent";
 import { getUserFromStorage} from "../Helper/ServerRequest";
-import useAuthContext from '../Providers/useAuthContext';
 
 function NavigationComponent({ children }) {
     const { firstName,lastName } = getUserFromStorage();
